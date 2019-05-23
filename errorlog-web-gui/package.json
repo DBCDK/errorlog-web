@@ -1,5 +1,5 @@
 {
-  "name": "error-log-web",
+  "name": "errorlog-web",
   "version": "0.0.1",
   "dependencies": {
     "react": "^16.8.6",
