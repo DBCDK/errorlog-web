@@ -46,12 +46,10 @@ class ErrorLogSummary extends React.Component {
 
     loadSummary() {
         const queryParams = queryString.parse(location.search);
-        const team = queryParams.team;
-        const fromSeconds = queryParams.fromSeconds;
 
         request
             .get('/api/v1/summary')
-            .query({team: team, 'from-seconds': fromSeconds})
+            .query(queryParams)
             .then(res => {
                 this.setState({summary: res.body})
             })

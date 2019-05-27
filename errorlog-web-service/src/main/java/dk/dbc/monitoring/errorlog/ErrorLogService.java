@@ -38,7 +38,7 @@ public class ErrorLogService {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("v1/summary")
     public Response getTeamErrors(@DefaultValue("metascrum") @javax.ws.rs.QueryParam("team") String team,
-                                  @DefaultValue("1800") @javax.ws.rs.QueryParam("from-seconds") int fromSeconds) {
+                                  @DefaultValue("1800") @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds) {
         LOGGER.entry();
         String res = "";
         LOGGER.info("Team: {}, from-seconds: {}", team, fromSeconds);
@@ -66,11 +66,11 @@ public class ErrorLogService {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("v1/details")
-    public Response getAppDetails(@javax.ws.rs.QueryParam("ns") String namespace,
-                                  @javax.ws.rs.QueryParam("app") String app,
-                                  @javax.ws.rs.QueryParam("team") String team,
-                                  @javax.ws.rs.QueryParam("from-seconds") int fromSeconds) {
+    @Path("v1/appview")
+    public Response getAppView(@javax.ws.rs.QueryParam("namespace") String namespace,
+                               @javax.ws.rs.QueryParam("app") String app,
+                               @javax.ws.rs.QueryParam("team") String team,
+                               @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds) {
         LOGGER.entry();
         String res = "";
 
@@ -79,7 +79,7 @@ public class ErrorLogService {
 
             QueryParam queryParam = new QueryParam();
             queryParam.withNamespace(namespace);
-            queryParam.withApp(app.replace("-slash-", "/")); // App name has the format of
+            queryParam.withApp(app);
             queryParam.withTeam(team);
             queryParam.withFrom(now.minus(fromSeconds, ChronoUnit.SECONDS));
             queryParam.withUntil(now);

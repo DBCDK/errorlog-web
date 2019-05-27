@@ -18,27 +18,18 @@ class ErrorLogSummary extends React.Component {
         };
 
         this.loadDetails = this.loadDetails.bind(this);
-
-        console.log("constructor");
     }
 
     componentDidMount() {
-        console.log("componentDidMount");
         this.loadDetails();
     }
 
     loadDetails() {
-        console.log("loadDetails");
         const queryParams = queryString.parse(location.search);
-        const app = queryParams.app;
-        const namespace = queryParams.namespace;
-        const team = queryParams.team;
-        const fromSeconds = queryParams.fromSeconds;
 
-        console.log(this.state);
         request
-            .get('/api/v1/details')
-            .query({team: team, 'from-seconds': fromSeconds, app: app, ns: namespace})
+            .get('/api/v1/appview')
+            .query(queryParams)
             .then(res => {
                 this.setState({data: res.body});
                 console.log(res.body);
