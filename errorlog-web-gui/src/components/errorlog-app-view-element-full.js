@@ -17,7 +17,6 @@ class ErrorLogAppViewElementSimple extends React.Component {
 
         this.formatDate = this.formatDate.bind(this);
         this.formatMessage = this.formatMessage.bind(this);
-        this.formatStacktrace = this.formatStacktrace.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
@@ -36,19 +35,6 @@ class ErrorLogAppViewElementSimple extends React.Component {
         }
     }
 
-    formatStacktrace() {
-        let stacktrace = this.props.item.stacktrace;
-
-        if (stacktrace === undefined) {
-            return '';
-        }
-
-        stacktrace = stacktrace.replace("\n", '<br/>');
-        stacktrace = stacktrace.replace("\t", indentation.repeat(2));
-
-        return stacktrace
-    }
-
     onClick() {
         this.setState({showDetails: true});
     }
@@ -64,7 +50,7 @@ class ErrorLogAppViewElementSimple extends React.Component {
                 <div>{indentation}team: {this.props.item.team}</div>
                 <div>{indentation}logger: {this.props.item.logger}</div>
                 <div>{indentation}cause: {this.props.item.cause}</div>
-                <div>{indentation}stacktrace: {this.formatStacktrace()}</div>
+                <div>{indentation}stacktrace: {this.props.item.stacktrace}</div>
                 <div>{indentation}timeLogged: {this.formatDate()}</div>
             </div>
         );
