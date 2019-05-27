@@ -5,12 +5,12 @@
 
 import React from "react";
 import {Button, ButtonToolbar} from "react-bootstrap";
-import ErrorLogSummaryElement from "./error-log-summary-element";
+import ErrorLogSummaryElement from "./errorlog-summary-element";
 
 const request = require('superagent');
 const queryString = require('query-string');
 
-class ErrorLogGui extends React.Component {
+class ErrorLogSummary extends React.Component {
 
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ class ErrorLogGui extends React.Component {
             summary: []
         };
 
-        ErrorLogGui.setFromSeconds = ErrorLogGui.setFromSeconds.bind(this);
+        ErrorLogSummary.setFromSeconds = ErrorLogSummary.setFromSeconds.bind(this);
         this.loadSummary = this.loadSummary.bind(this);
     }
 
@@ -76,7 +76,7 @@ class ErrorLogGui extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogGui.setFromSeconds(10 * 24 * 60 * 60)
+                                    ErrorLogSummary.setFromSeconds(10 * 24 * 60 * 60)
                                 }}
                                 variant="primary">
                             Debug
@@ -85,7 +85,7 @@ class ErrorLogGui extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogGui.setFromSeconds(5 * 60)
+                                    ErrorLogSummary.setFromSeconds(5 * 60)
                                 }}>
                             5 minutter
                         </Button>
@@ -93,7 +93,7 @@ class ErrorLogGui extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogGui.setFromSeconds(30 * 60)
+                                    ErrorLogSummary.setFromSeconds(30 * 60)
                                 }}>
                             30 minutter
                         </Button>
@@ -101,7 +101,7 @@ class ErrorLogGui extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogGui.setFromSeconds(6 * 60 * 60)
+                                    ErrorLogSummary.setFromSeconds(6 * 60 * 60)
                                 }}>
                             6 timer
                         </Button>
@@ -109,7 +109,7 @@ class ErrorLogGui extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogGui.setFromSeconds(24 * 60 * 60)
+                                    ErrorLogSummary.setFromSeconds(24 * 60 * 60)
                                 }}>
                             1 døgn
                         </Button>
@@ -127,4 +127,4 @@ class ErrorLogGui extends React.Component {
 
 }
 
-export default ErrorLogGui;
+export default ErrorLogSummary;
