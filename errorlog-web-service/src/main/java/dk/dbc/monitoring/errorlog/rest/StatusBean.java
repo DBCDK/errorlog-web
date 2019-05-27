@@ -12,6 +12,6 @@ import javax.ejb.Stateless;
 import javax.ws.rs.Path;
 
 @Stateless
-@Path("")
+@Path("api")
 public class StatusBean implements ServiceStatus {
 }

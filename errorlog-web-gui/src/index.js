@@ -5,9 +5,9 @@
 
 const React = require("react");
 const ReactDOM = require("react-dom");
-import ErrorlogGui from './components/errorlog-gui';
+import ErrorLogGui from './components/error-log-gui';
 
 ReactDOM.render(
-<ErrorlogGui/>,
+<ErrorLogGui/>,
     document.getElementById('errorlog-web-root')
 );
