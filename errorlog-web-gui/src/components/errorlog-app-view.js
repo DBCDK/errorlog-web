@@ -12,37 +12,18 @@ const request = require('superagent');
 class ErrorLogSummary extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            data: {entities: []}
-        };
-
-        this.loadDetails = this.loadDetails.bind(this);
     }
 
     componentDidMount() {
-        this.loadDetails();
-    }
-
-    loadDetails() {
         const queryParams = queryString.parse(location.search);
 
-        request
-            .get('/api/v1/appview')
-            .query(queryParams)
-            .then(res => {
-                this.setState({data: res.body});
-                console.log(res.body);
-            })
-            .catch(err => {
-                alert(err.message);
-            });
+        this.props.onAppView(queryParams);
     }
 
     render() {
         return (
             <div className="container-fluid">
-                {this.state.data.entities.map((item, key) =>
+                {this.props.appViewData.map((item, key) =>
                     <ErrorlogAppViewElementSimple item={item} key={key}/>
                 )}
             </div>

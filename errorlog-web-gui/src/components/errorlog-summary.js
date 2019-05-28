@@ -7,7 +7,6 @@ import React from "react";
 import {Button, ButtonToolbar} from "react-bootstrap";
 import ErrorLogSummaryElement from "./errorlog-summary-element";
 
-const request = require('superagent');
 const queryString = require('query-string');
 
 class ErrorLogSummary extends React.Component {
@@ -15,11 +14,8 @@ class ErrorLogSummary extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            summary: []
-        };
-
         ErrorLogSummary.setFromSeconds = ErrorLogSummary.setFromSeconds.bind(this);
+
         this.loadSummary = this.loadSummary.bind(this);
     }
 
@@ -47,15 +43,7 @@ class ErrorLogSummary extends React.Component {
     loadSummary() {
         const queryParams = queryString.parse(location.search);
 
-        request
-            .get('/api/v1/summary')
-            .query(queryParams)
-            .then(res => {
-                this.setState({summary: res.body})
-            })
-            .catch(err => {
-                alert(err.message);
-            });
+        this.props.onSummary(queryParams);
     }
 
     static setFromSeconds(seconds) {
@@ -115,7 +103,7 @@ class ErrorLogSummary extends React.Component {
                 </div>
                 <hr/>
                 <div>
-                    {this.state.summary.map((item, key) =>
+                    {this.props.summaryData.map((item, key) =>
                         <ErrorLogSummaryElement item={item} key={key}/>
                     )}
                 </div>
