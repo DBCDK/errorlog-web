@@ -62,15 +62,6 @@ class ErrorLogSummary extends React.Component {
                                 type='submit'
                                 disabled={false}
                                 onClick={() => {
-                                    ErrorLogSummary.setFromSeconds(10 * 24 * 60 * 60)
-                                }}
-                                variant="primary">
-                            Debug
-                        </Button>
-                        <Button className='btn'
-                                type='submit'
-                                disabled={false}
-                                onClick={() => {
                                     ErrorLogSummary.setFromSeconds(5 * 60)
                                 }}>
                             5 minutter
@@ -97,7 +88,25 @@ class ErrorLogSummary extends React.Component {
                                 onClick={() => {
                                     ErrorLogSummary.setFromSeconds(24 * 60 * 60)
                                 }}>
-                            1 døgn
+                            1 dag
+                        </Button>
+                        <Button className='btn'
+                                type='submit'
+                                disabled={false}
+                                onClick={() => {
+                                    ErrorLogSummary.setFromSeconds(7 * 24 * 60 * 60)
+                                }}
+                                variant="primary">
+                            7 dage
+                        </Button>
+                        <Button className='btn'
+                                type='submit'
+                                disabled={false}
+                                onClick={() => {
+                                    ErrorLogSummary.setFromSeconds(14 * 24 * 60 * 60)
+                                }}
+                                variant="primary">
+                            14 dage
                         </Button>
                     </ButtonToolbar>
                 </div>
