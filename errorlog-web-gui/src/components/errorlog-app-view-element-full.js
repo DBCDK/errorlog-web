@@ -42,16 +42,16 @@ class ErrorLogAppViewElementSimple extends React.Component {
     render() {
         return (
             <div>
-                <div>{indentation}app: {this.props.item.app}</div>
-                <div>{indentation}namespace: {this.props.item.namespace}</div>
-                <div>{indentation}host: {this.props.item.host}</div>
-                <div>{indentation}container: {this.props.item.container}</div>
-                <div>{indentation}message: {this.props.item.message}</div>
-                <div>{indentation}team: {this.props.item.team}</div>
-                <div>{indentation}logger: {this.props.item.logger}</div>
-                <div>{indentation}cause: {this.props.item.cause}</div>
-                <div>{indentation}stacktrace: {this.props.item.stacktrace}</div>
-                <div>{indentation}timeLogged: {this.formatDate()}</div>
+                <div>{indentation}<b>app:</b> {this.props.item.app}</div>
+                <div>{indentation}<b>namespace:</b> {this.props.item.namespace}</div>
+                <div>{indentation}<b>host:</b> {this.props.item.host}</div>
+                <div>{indentation}<b>container:</b> {this.props.item.container}</div>
+                <div>{indentation}<b>message:</b> {this.props.item.message}</div>
+                <div>{indentation}<b>team:</b> {this.props.item.team}</div>
+                <div>{indentation}<b>logger:</b> {this.props.item.logger}</div>
+                <div>{indentation}<b>cause:</b> {this.props.item.cause}</div>
+                <div>{indentation}<b>stacktrace:</b><br/> {this.props.item.stacktrace}</div>
+                <div>{indentation}<b>timeLogged:</b> {this.formatDate()}</div>
             </div>
         );
     }
