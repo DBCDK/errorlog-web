@@ -41,16 +41,16 @@ public class ErrorLogService {
                                   @DefaultValue("1800") @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds) {
         LOGGER.entry();
         String res = "";
-        LOGGER.info("Team: {}, from-seconds: {}", team, fromSeconds);
-        Instant now = Instant.now();
 
-        QueryParam queryParam = new QueryParam();
+        final Instant now = Instant.now();
+
+        final QueryParam queryParam = new QueryParam();
         queryParam.withTeam(team);
         queryParam.withFrom(now.minus(fromSeconds, ChronoUnit.SECONDS));
         queryParam.withUntil(now);
         LOGGER.info("Calling getSummary with {}", queryParam);
 
-        List<ErrorLogSummary> summary = errorLog.getSummary(queryParam);
+        final List<ErrorLogSummary> summary = errorLog.getSummary(queryParam);
 
         try {
             res = jsonbContext.marshall(summary);
@@ -74,19 +74,19 @@ public class ErrorLogService {
         LOGGER.entry();
         String res = "";
 
+        final Instant now = Instant.now();
+
+        final QueryParam queryParam = new QueryParam();
+        queryParam.withNamespace(namespace);
+        queryParam.withApp(app);
+        queryParam.withTeam(team);
+        queryParam.withFrom(now.minus(fromSeconds, ChronoUnit.SECONDS));
+        queryParam.withUntil(now);
+        LOGGER.info("Calling getAppView with {}", queryParam);
+
+        final ErrorLogAppView errorLogAppView = errorLog.getAppView(queryParam);
+
         try {
-            Instant now = Instant.now();
-
-            QueryParam queryParam = new QueryParam();
-            queryParam.withNamespace(namespace);
-            queryParam.withApp(app);
-            queryParam.withTeam(team);
-            queryParam.withFrom(now.minus(fromSeconds, ChronoUnit.SECONDS));
-            queryParam.withUntil(now);
-            LOGGER.info("Calling getAppView with {}", queryParam);
-
-            ErrorLogAppView errorLogAppView = errorLog.getAppView(queryParam);
-
             res = jsonbContext.marshall(errorLogAppView);
 
             return Response.ok(res, MediaType.APPLICATION_JSON).build();
