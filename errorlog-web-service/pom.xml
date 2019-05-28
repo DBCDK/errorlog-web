@@ -19,8 +19,6 @@
     <properties>
         <serviceutils.version>0.1-SNAPSHOT</serviceutils.version>
         <errorlogapi.version>1.0-SNAPSHOT</errorlogapi.version>
-        <jersey.version>2.22.2</jersey.version>
-        <microprofile.version>1.2</microprofile.version>
     </properties>
 
     <dependencies>
@@ -39,11 +37,6 @@
             <artifactId>slf4j-ext</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
             <groupId>dk.dbc</groupId>
             <artifactId>serviceutils</artifactId>
             <version>${serviceutils.version}</version>
@@ -59,12 +52,6 @@
             <artifactId>jersey-common</artifactId>
             <version>${jersey.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile.config</groupId>
-            <artifactId>microprofile-config-api</artifactId>
-            <version>${microprofile.version}</version> <!-- version 1.2 available since Payara v4.1.2.181 -->
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
