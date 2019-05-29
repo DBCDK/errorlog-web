@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("/")
+@ApplicationPath("/api")
 public class ErrorLogApplication extends Application {
     private static final Set<Class<?>> classes = new HashSet<>(Arrays.asList(ErrorLogService.class, StatusBean.class));
 

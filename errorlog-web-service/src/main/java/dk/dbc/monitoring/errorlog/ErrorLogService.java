@@ -26,7 +26,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Stateless
-@Path("api")
+@Path("v1")
 public class ErrorLogService {
     private static final XLogger LOGGER = XLoggerFactory.getXLogger(ErrorLogService.class);
     private final JSONBContext jsonbContext = new JSONBContext();
@@ -36,7 +36,7 @@ public class ErrorLogService {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("v1/summary")
+    @Path("summary")
     public Response getTeamErrors(@DefaultValue("metascrum") @javax.ws.rs.QueryParam("team") String team,
                                   @DefaultValue("1800") @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds) {
         LOGGER.entry();
@@ -66,7 +66,7 @@ public class ErrorLogService {
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("v1/appview")
+    @Path("appview")
     public Response getAppView(@javax.ws.rs.QueryParam("namespace") String namespace,
                                @javax.ws.rs.QueryParam("app") String app,
                                @javax.ws.rs.QueryParam("team") String team,
