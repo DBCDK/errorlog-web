@@ -1,0 +1,6 @@
+echo "### cleaning errorlog-web project ###"
+
+mvn clean
+git pull --ff-only
+docker rm -f errorlog-web &>/dev/null || true
+exit 0

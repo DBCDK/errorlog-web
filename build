@@ -1,0 +1,13 @@
+case "$1" in
+    docker)
+        echo "### building errorlog-web docker ###"
+        docker build . -t errorlog-web || exit 1
+        ;;
+
+    *)
+        echo "### building errorlog-web project ###"
+        echo "### Look for build artifacts in target/ ###"
+
+        mvn package -Dmaven.test.skip=true || exit 1
+        ;;
+esac

@@ -1,0 +1,3 @@
+echo "### Stopping errorlog-web docker ###"
+
+docker stop errorlog-web || exit 1
