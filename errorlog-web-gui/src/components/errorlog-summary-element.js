@@ -28,10 +28,6 @@ class ErrorLogSummaryElement extends React.Component {
             queryParams.fromSeconds = 1800; // 30 minutes
         }
 
-        if (queryParams.team === undefined) {
-            queryParams.team = 'metascrum';
-        }
-
         return '?' + queryString.stringify(queryParams);
     }
 

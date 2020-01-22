@@ -15,6 +15,9 @@ import org.slf4j.ext.XLoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import javax.inject.Inject;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -34,15 +37,31 @@ public class ErrorLogService {
     @EJB
     ErrorLog errorLog;
 
+    @Inject
+    @ConfigProperty(name="team", defaultValue="metascrum")
+    private String defaultTeam;
+
+    @Inject
+    @ConfigProperty(name="namespace", defaultValue="")
+    private String defaultNamespace;
+
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     @Path("summary")
-    public Response getTeamErrors(@DefaultValue("metascrum") @javax.ws.rs.QueryParam("team") String team,
+    public Response getTeamErrors(@javax.ws.rs.QueryParam("team") String team,
                                   @DefaultValue("1800") @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds) {
         LOGGER.entry();
         String res = "";
 
         final Instant now = Instant.now();
+
+        LOGGER.error("defaultTeam is: " + defaultTeam);
+        if(team == null) {
+            LOGGER.error("Using default value for team");
+            team = defaultTeam;
+        }
+
+        LOGGER.error( "Team is: " + team);
 
         final QueryParam queryParam = new QueryParam();
         queryParam.withTeam(team);
@@ -75,6 +94,17 @@ public class ErrorLogService {
         String res = "";
 
         final Instant now = Instant.now();
+
+        LOGGER.error("defaultTeam is: " + defaultTeam);
+        if(team == null) {
+            LOGGER.error("Using default value for team");
+            team = defaultTeam;
+        }
+        LOGGER.error("defaultnamespace is: " + defaultNamespace);
+        if(namespace == null) {
+            LOGGER.error("Using default value for namespace");
+            namespace = defaultNamespace;
+        }
 
         final QueryParam queryParam = new QueryParam();
         queryParam.withNamespace(namespace);

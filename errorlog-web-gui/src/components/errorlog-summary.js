@@ -28,11 +28,6 @@ class ErrorLogSummary extends React.Component {
             shouldReload = true;
         }
 
-        if (queryParams.team === undefined) {
-            queryParams.team = 'metascrum';
-            shouldReload = true;
-        }
-
         if (shouldReload) {
             location.search = queryString.stringify(queryParams);
         } else {
