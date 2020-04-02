@@ -15,15 +15,8 @@ class ErrorLogAppViewElementSimple extends React.Component {
             showDetails: false
         };
 
-        this.formatDate = this.formatDate.bind(this);
         this.formatMessage = this.formatMessage.bind(this);
         this.onClick = this.onClick.bind(this);
-    }
-
-    formatDate() {
-        const date = new Date(this.props.item.timeLogged);
-
-        return date.toISOString();
     }
 
     formatMessage() {
@@ -51,7 +44,7 @@ class ErrorLogAppViewElementSimple extends React.Component {
                 <div>{indentation}<b>logger:</b> {this.props.item.logger}</div>
                 <div>{indentation}<b>cause:</b> {this.props.item.cause}</div>
                 <div>{indentation}<b>stacktrace:</b><br/> {this.props.item.stacktrace}</div>
-                <div>{indentation}<b>timeLogged:</b> {this.formatDate()}</div>
+                <div>{indentation}<b>timeLogged:</b> {this.props.item.timeLoggedZonedDisplay}</div>
             </div>
         );
     }

@@ -14,15 +14,8 @@ class ErrorLogAppViewElementSimple extends React.Component {
             showDetails: false
         };
 
-        this.formatDate = this.formatDate.bind(this);
         this.formatMessage = this.formatMessage.bind(this);
         this.onClick = this.onClick.bind(this);
-    }
-
-    formatDate() {
-        const date = new Date(this.props.item.timeLogged);
-
-        return date.toISOString();
     }
 
     formatMessage() {
@@ -42,7 +35,7 @@ class ErrorLogAppViewElementSimple extends React.Component {
         return (
             <div>
                 <div onClick={this.onClick}>
-                    {this.formatDate()}: {this.formatMessage()}
+                    {this.props.item.timeLoggedZonedDisplay}: {this.formatMessage()}
                 </div>
                 <div  id="p_wrap">
                     {this.state.showDetails && <ErrorLogAppViewElementFull item={this.props.item}/>}
