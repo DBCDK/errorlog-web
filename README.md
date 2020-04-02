@@ -43,7 +43,7 @@ To set it up in IntelliJ:
 * Package manager should be /local/path/to/errorlog-web/errorlog-web-gui/node/node_modules/npm 
 * Everything should be setup now so click the ok button
 * Before starting the configuration you need to make sure the devServer proxy port in errorlog-web-gui/webpack.config.js corresponds with the port the api is running on.
-* Now run the configuration and open localhost:8090 in your favorite browser
+* Now run the configuration and open localhost:8080 in your favorite browser
 
 When ever the gui changes locally the local web page will refresh. 
 
