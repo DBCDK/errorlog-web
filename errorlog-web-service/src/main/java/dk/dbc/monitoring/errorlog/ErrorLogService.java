@@ -10,17 +10,27 @@ import dk.dbc.jsonb.JSONBException;
 import dk.dbc.monitoring.errorlog.model.ErrorLogAppView;
 import dk.dbc.monitoring.errorlog.model.ErrorLogSummary;
 import dk.dbc.monitoring.errorlog.model.QueryParam;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.eclipse.microprofile.metrics.Tag;
+import org.eclipse.microprofile.metrics.annotation.RegistryType;
 import org.slf4j.ext.XLogger;
 import org.slf4j.ext.XLoggerFactory;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -33,6 +43,10 @@ public class ErrorLogService {
 
     @EJB
     ErrorLog errorLog;
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    MetricRegistry metricRegistry;
 
     @GET
     @Produces({MediaType.APPLICATION_JSON})
@@ -98,4 +112,30 @@ public class ErrorLogService {
         }
     }
 
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    @Path("counters")
+    public void getCounters(@Context HttpServletRequest req,
+                            @Context HttpServletResponse resp,
+                            @javax.ws.rs.QueryParam("team") String team,
+                            @javax.ws.rs.QueryParam("fromSeconds") int fromSeconds)
+            throws ServletException, IOException {
+
+        final Instant now = Instant.now();
+        final QueryParam queryParam = new QueryParam();
+        queryParam.withTeam(team);
+        queryParam.withFrom(now.minus(fromSeconds, ChronoUnit.SECONDS));
+        queryParam.withUntil(now);
+        final List<ErrorLogSummary> summaries = errorLog.getSummary(queryParam);
+        for (ErrorLogSummary summary : summaries) {
+            if (summary.getKind() == ErrorLogSummary.Kind.APP) {
+                final Counter counter = metricRegistry.counter("errors",
+                        new Tag("namespace", summary.getNamespace()),
+                        new Tag("app", summary.getApp()));
+                counter.inc(summary.getCount());
+            }
+        }
+
+        req.getRequestDispatcher("/metrics").forward(req, resp);
+    }
 }
