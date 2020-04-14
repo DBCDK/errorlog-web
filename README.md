@@ -10,6 +10,36 @@ The purpose of this microservice is to show summary of errors for a team within 
 * ERRORLOG_DB database URL (USER:PASSWORD@HOST:PORT/DBNAME) of the underlying errorlog store.
 * ERROR_LOG_WEB_PORT the port at which this service is accessible. Default is 8080.
 
+### Prometheus integration
+
+Point a prometheus instance to the URL api/v1/counters?fromSeconds=[SECONDS_FROM_NOW]&team=[TEAM]
+to gather error counter metrics and expose them in OpenMetrics format.
+
+Metrics are tagged with namespace and app name.
+
+Metrics are only collected for the team specified by the &team query parameter and the &fromSeconds
+parameter determines how many seconds back in time starting from now to base the error summary on.
+
+Be advised, that there is an inherent lag in the time between an application logs an error and the
+errorlog system actually picking this up, both due to delays before the log entry ends up in kafka,
+and before the errorlog system consumes it. Because of this there is a real risk of the metrics
+gathering process missing log entries, and the metrics should therefore be used for trends spotting
+only, not for exact counts. A relatively long scrape interval is therefore recommended.
+
+Example config:
+
+```yaml
+scrape_configs:
+      - job_name: 'errorlog-web'
+        scrape_interval: 600s
+        metrics_path: '/api/v1/counters'
+        params:
+            team: ['metascrum']
+            fromSeconds: ['600']
+        static_configs:
+            - targets: ['somehost:someport']
+```
+
 ### Development
 
 **Requirements**
