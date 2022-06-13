@@ -19,5 +19,5 @@ done
 
 echo ""
 echo "### Status for errorlog-web ###"
-curl -vs http://localhost:${errorlog_web_port}/api/status
+curl -vs http://localhost:${errorlog_web_port}/health/ready
 echo ""

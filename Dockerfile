@@ -1,4 +1,4 @@
-FROM docker.dbc.dk/payara5-micro:latest
+FROM docker-dbc.artifacts.dbccloud.dk/payara5-micro:latest
 
 LABEL ERRORLOG_DB="ERRORLOG_DB database URL (USER:PASSWORD@HOST:PORT/DBNAME) of the underlying errorlog store."
 
