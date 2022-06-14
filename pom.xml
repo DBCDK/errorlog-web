@@ -15,7 +15,7 @@
     <parent>
         <groupId>dk.dbc</groupId>
         <artifactId>microservice-pom</artifactId>
-        <version>latest-SNAPSHOT</version>
+        <version>java11-SNAPSHOT</version>
     </parent>
 
     <artifactId>errorlog-web</artifactId>
@@ -34,19 +34,54 @@
     <pluginRepositories>
         <pluginRepository>
             <id>mavenrepo.dbc.dk</id>
-            <url>http://mavenrepo.dbc.dk/content/groups/public</url>
+            <url>https://mavenrepo.dbc.dk/content/groups/public</url>
         </pluginRepository>
     </pluginRepositories>
 
     <repositories>
         <repository>
             <id>mavenrepo.dbc.dk</id>
-            <url>http://mavenrepo.dbc.dk/content/groups/public</url>
+            <url>https://mavenrepo.dbc.dk/content/groups/public</url>
         </repository>
     </repositories>
 
     <dependencies>
-
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-ext</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dk.dbc</groupId>
+            <artifactId>errorlog-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>${jersey.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>${microprofile.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>2.3.3</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -80,5 +115,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

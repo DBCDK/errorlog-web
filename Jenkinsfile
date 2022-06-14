@@ -1,15 +1,18 @@
 #!groovy
 
-def workerNode = "devel8"
+def workerNode = "devel11"
 
 pipeline {
     agent { label workerNode }
 
     tools {
+        jdk 'jdk11'
         maven "Maven 3"
     }
 
     triggers {
+        upstream(upstreamProjects: "Docker-payara5-bump-trigger",
+            threshold: hudson.model.Result.SUCCESS)
         pollSCM("H/03 * * * *")
     }
 
@@ -18,7 +21,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE_NAME = "docker-io.dbc.dk/errorlog-web"
+        DOCKER_IMAGE_NAME = "docker-metascrum.artifacts.dbccloud.dk/errorlog-web"
         DOCKER_IMAGE_VERSION = "${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
         DOCKER_IMAGE_DIT_VERSION = "DIT-${env.BUILD_NUMBER}"
     }
